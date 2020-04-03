@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">InfoCo</string>
+    <string name="indonesia">Indonesia</string>
+    <string name="total_positif">Total Positif</string>
+    <string name="orang">orang</string>
+    <string name="total_sembuh">Total Sembuh</string>
+    <string name="total_meninggal">Total Meninggal</string>
+    <string name="data_per_provinsi">Data Per Provinsi</string>
+    <string name="global_dunia">Global Dunia</string>
+    <string name="data_per_negara">Data Per Negara</string>
+    <string name="sumber_data"><![CDATA[* Sumber data : kawalcorona.com (Kementrian Kesehatan & JHU)]]></string>
 </resources>
