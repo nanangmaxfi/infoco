@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.web.nanangmaxfi.infoco.R;
-import id.web.nanangmaxfi.infoco.data.ProvinceEntity;
+import id.web.nanangmaxfi.infoco.data.source.local.entity.ProvinceEntity;
 
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
     private List<ProvinceEntity> listProvince = new ArrayList<>();

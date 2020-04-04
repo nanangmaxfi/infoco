@@ -1,4 +1,4 @@
-package id.web.nanangmaxfi.infoco.data;
+package id.web.nanangmaxfi.infoco.data.source.local.entity;
 
 public class ProvinceEntity {
     private String FID;

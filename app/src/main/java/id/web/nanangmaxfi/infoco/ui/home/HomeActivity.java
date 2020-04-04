@@ -9,15 +9,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 
 import id.web.nanangmaxfi.infoco.R;
-import id.web.nanangmaxfi.infoco.data.IndonesiaEntity;
+import id.web.nanangmaxfi.infoco.data.source.local.entity.IndonesiaEntity;
 import id.web.nanangmaxfi.infoco.ui.country.CountryActivity;
 import id.web.nanangmaxfi.infoco.ui.province.ProvinceActivity;
+import id.web.nanangmaxfi.infoco.viewmodel.ViewModelFactory;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView txtPositifIndo, txtSembuhIndo, txtMeninggalIndo, txtPositif, txtSembuh, txtMeninggal, txtUpdate;
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
             getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
             TextView actionTitle = findViewById(R.id.txt_title);
-            actionTitle.setText("InfoCo");
+            actionTitle.setText(getString(R.string.app_name));
         }
 
         txtPositifIndo = findViewById(R.id.txt_positif_indo);
@@ -54,8 +56,13 @@ public class HomeActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         refreshLayout = findViewById(R.id.swipe_refresh);
 
-        viewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HomeViewModel.class);
-        loadIndonesia(viewModel.getIndonesia());
+        ViewModelFactory factory = ViewModelFactory.getInstance();
+        viewModel = new ViewModelProvider(this,factory).get(HomeViewModel.class);
+        showLoading(true);
+        viewModel.getIndonesia().observe(this, data -> {
+            showLoading(false);
+            loadIndonesia(data);
+        });
 
         btnProvinsi.setOnClickListener(view -> {
             Intent intent = new Intent(this, ProvinceActivity.class);
@@ -69,15 +76,41 @@ public class HomeActivity extends AppCompatActivity {
 
         refreshLayout.setOnRefreshListener(() -> {
             new Handler().postDelayed(() -> {
-                refreshLayout.setRefreshing(false);
-                loadIndonesia(viewModel.getIndonesia());
+                viewModel.getIndonesia().observe(this, data -> {
+                    refreshLayout.setRefreshing(false);
+                    showLoading(false);
+                    loadIndonesia(data);
+                });
             }, 1000);
         });
     }
 
     private void loadIndonesia(IndonesiaEntity entity){
-        txtPositifIndo.setText(entity.getPositif());
-        txtSembuhIndo.setText(entity.getSembuh());
-        txtMeninggalIndo.setText(entity.getMeninggal());
+        if (entity != null){
+            txtPositifIndo.setText(entity.getPositif());
+            txtSembuhIndo.setText(entity.getSembuh());
+            txtMeninggalIndo.setText(entity.getMeninggal());
+        }
+        else {
+            loadFailed();
+        }
+
+    }
+
+    private void loadFailed(){
+        txtPositifIndo.setText(R.string.no_data);
+        txtSembuhIndo.setText(R.string.no_data);
+        txtMeninggalIndo.setText(R.string.no_data);
+    }
+
+    private void showLoading(Boolean bool){
+        if (bool){
+            progressBar.setVisibility(View.VISIBLE);
+            layoutDetail.setVisibility(View.INVISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+            layoutDetail.setVisibility(View.VISIBLE);
+        }
     }
 }

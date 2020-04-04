@@ -39,4 +39,7 @@ ext {
     materialVersion = '1.0.0'
     recyclerViewVersion = '1.1.0'
     glideVersion = '4.10.0'
+
+    retrofitVersion = '2.6.0'
+    okhttp3Version = '3.12.0'
 }

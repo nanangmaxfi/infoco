@@ -12,4 +12,5 @@
     <string name="positif">Positif</string>
     <string name="sembuh">Sembuh</string>
     <string name="meninggal">Meninggal</string>
+    <string name="no_data">no data</string>
 </resources>
