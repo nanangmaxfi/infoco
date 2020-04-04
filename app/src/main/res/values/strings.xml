@@ -9,4 +9,7 @@
     <string name="global_dunia">Global Dunia</string>
     <string name="data_per_negara">Data Per Negara</string>
     <string name="sumber_data"><![CDATA[* Sumber data : kawalcorona.com (Kementrian Kesehatan & JHU)]]></string>
+    <string name="positif">Positif</string>
+    <string name="sembuh">Sembuh</string>
+    <string name="meninggal">Meninggal</string>
 </resources>
