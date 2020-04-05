@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import id.web.nanangmaxfi.infoco.data.source.remote.response.CountryResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.IndonesiaResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.ProvinceResponse;
 import id.web.nanangmaxfi.infoco.utils.rest.ApiClient;
@@ -47,6 +48,7 @@ public class RemoteDataSource {
         apiInterface.getProvince().enqueue(new Callback<List<ProvinceResponse>>() {
             @Override
             public void onResponse(Call<List<ProvinceResponse>> call, Response<List<ProvinceResponse>> response) {
+                Log.i(TAG,"RC: "+ response.code());
                 if (response.isSuccessful()){
                     List<ProvinceResponse> provinceResponses = response.body();
                     callback.onDataReceived(provinceResponses);
@@ -61,11 +63,34 @@ public class RemoteDataSource {
         });
     }
 
+    public void getDataCountry(LoadCountryCallback callback){
+        apiInterface.getCountry().enqueue(new Callback<List<CountryResponse>>() {
+            @Override
+            public void onResponse(Call<List<CountryResponse>> call, Response<List<CountryResponse>> response) {
+                Log.i(TAG,"RC: "+ response.code());
+                if (response.isSuccessful()){
+                    List<CountryResponse> countryResponses = response.body();
+                    callback.onDataReceived(countryResponses);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CountryResponse>> call, Throwable t) {
+                Log.e(TAG,t.getMessage());
+                callback.onDataReceived(null);
+            }
+        });
+    }
+
     public interface LoadIndonesiaCallback{
         void onDataReceived(List<IndonesiaResponse> indonesiaResponse);
     }
 
     public interface LoadProvinceCallback{
         void onDataReceived(List<ProvinceResponse> provinceResponses);
+    }
+
+    public interface LoadCountryCallback{
+        void onDataReceived(List<CountryResponse> countryResponses);
     }
 }

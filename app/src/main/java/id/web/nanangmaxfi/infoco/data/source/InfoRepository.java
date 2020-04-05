@@ -1,18 +1,23 @@
 package id.web.nanangmaxfi.infoco.data.source;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import id.web.nanangmaxfi.infoco.data.source.local.entity.CountryEntity;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.IndonesiaEntity;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.ProvinceEntity;
 import id.web.nanangmaxfi.infoco.data.source.remote.RemoteDataSource;
+import id.web.nanangmaxfi.infoco.data.source.remote.response.CountryResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.IndonesiaResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.ProvinceResponse;
 
 public class InfoRepository implements InfoDataSource{
+    private final static String TAG = InfoRepository.class.getSimpleName();
     private volatile static InfoRepository INSTANCE = null;
     private final RemoteDataSource remoteDataSource;
 
@@ -68,6 +73,26 @@ public class InfoRepository implements InfoDataSource{
                 provinceEntities.add(entity);
             }
             result.postValue(provinceEntities);
+        });
+        return result;
+    }
+
+    @Override
+    public LiveData<List<CountryEntity>> getAllCountry() {
+        MutableLiveData<List<CountryEntity>> result = new MutableLiveData<>();
+        remoteDataSource.getDataCountry(countryResponses -> {
+            List<CountryEntity> countryEntities = new ArrayList<>();
+            for (CountryResponse response: countryResponses) {
+                CountryEntity entity = new CountryEntity();
+                entity.setId(response.getAttributes().getId());
+                entity.setCountry(response.getAttributes().getCountry());
+                entity.setLastUpdate(response.getAttributes().getLastUpdate());
+                entity.setPositif(response.getAttributes().getPositif());
+                entity.setSembuh(response.getAttributes().getSembuh());
+                entity.setMeninggal(response.getAttributes().getMeninggal());
+                countryEntities.add(entity);
+            }
+            result.postValue(countryEntities);
         });
         return result;
     }
