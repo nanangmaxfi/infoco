@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import id.web.nanangmaxfi.infoco.data.source.InfoRepository;
 import id.web.nanangmaxfi.infoco.di.Injection;
 import id.web.nanangmaxfi.infoco.ui.home.HomeViewModel;
+import id.web.nanangmaxfi.infoco.ui.province.ProvinceViewModel;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private static volatile ViewModelFactory INSTANCE;
@@ -33,6 +34,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(HomeViewModel.class)){
             return (T) new HomeViewModel(infoRepository);
+        }
+        else if (modelClass.isAssignableFrom(ProvinceViewModel.class)){
+            return (T) new ProvinceViewModel(infoRepository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

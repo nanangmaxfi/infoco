@@ -12,5 +12,5 @@ public interface ApiInterface {
     Call<List<IndonesiaResponse>> getIndonesia();
 
     @GET("indonesia/provinsi")
-    Call<ProvinceResponse> getProvince();
+    Call<List<ProvinceResponse>> getProvince();
 }

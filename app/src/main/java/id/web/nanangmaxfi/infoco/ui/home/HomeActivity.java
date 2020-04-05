@@ -19,6 +19,7 @@ import id.web.nanangmaxfi.infoco.R;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.IndonesiaEntity;
 import id.web.nanangmaxfi.infoco.ui.country.CountryActivity;
 import id.web.nanangmaxfi.infoco.ui.province.ProvinceActivity;
+import id.web.nanangmaxfi.infoco.utils.ConfigUtils;
 import id.web.nanangmaxfi.infoco.viewmodel.ViewModelFactory;
 
 public class HomeActivity extends AppCompatActivity {
@@ -33,15 +34,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            getSupportActionBar().setDisplayShowCustomEnabled(true);
-            getSupportActionBar().setCustomView(R.layout.custom_toolbar);
-
-            TextView actionTitle = findViewById(R.id.txt_title);
-            actionTitle.setText(getString(R.string.app_name));
-        }
+        ConfigUtils.toolbar(this,getString(R.string.app_name),false);
 
         txtPositifIndo = findViewById(R.id.txt_positif_indo);
         txtSembuhIndo = findViewById(R.id.txt_sembuh_indo);

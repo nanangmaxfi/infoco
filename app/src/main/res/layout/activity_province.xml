@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.province.ProvinceActivity">
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"
@@ -12,9 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_province"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_province"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

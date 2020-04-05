@@ -17,6 +17,12 @@ import id.web.nanangmaxfi.infoco.data.source.local.entity.ProvinceEntity;
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
     private List<ProvinceEntity> listProvince = new ArrayList<>();
 
+    void setListProvince(List<ProvinceEntity> provinces){
+        if (provinces == null) return;
+        listProvince.clear();
+        listProvince.addAll(provinces);
+    }
+
     @NonNull
     @Override
     public ProvinceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -27,7 +33,7 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
     @Override
     public void onBindViewHolder(@NonNull ProvinceViewHolder holder, int position) {
         ProvinceEntity provinceEntity = listProvince.get(position);
-        holder.bind(provinceEntity);
+        holder.bind(provinceEntity,position+1);
     }
 
     @Override
@@ -46,7 +52,8 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
             txtMeninggal = itemView.findViewById(R.id.txt_meninggal);
         }
 
-        void bind(ProvinceEntity provinceEntity){
+        void bind(ProvinceEntity provinceEntity, int position){
+            txtNo.setText(String.valueOf(position));
             txtName.setText(provinceEntity.getProvinsi());
             txtPositif.setText(provinceEntity.getPositif());
             txtSembuh.setText(provinceEntity.getSembuh());
