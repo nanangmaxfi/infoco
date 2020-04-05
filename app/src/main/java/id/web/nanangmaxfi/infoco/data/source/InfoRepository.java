@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.web.nanangmaxfi.infoco.data.source.local.entity.CountryEntity;
+import id.web.nanangmaxfi.infoco.data.source.local.entity.GlobalDataEntity;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.IndonesiaEntity;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.ProvinceEntity;
 import id.web.nanangmaxfi.infoco.data.source.remote.RemoteDataSource;
@@ -54,6 +55,7 @@ public class InfoRepository implements InfoDataSource{
 
             result.postValue(entity);
         });
+
         return result;
     }
 
@@ -94,6 +96,45 @@ public class InfoRepository implements InfoDataSource{
             }
             result.postValue(countryEntities);
         });
+        return result;
+    }
+
+    @Override
+    public LiveData<GlobalDataEntity> getGlobalPositif() {
+        MutableLiveData<GlobalDataEntity> result = new MutableLiveData<>();
+        remoteDataSource.getGlobalPositif(globalDataResponse -> {
+            GlobalDataEntity entity = new GlobalDataEntity();
+            entity.setName(globalDataResponse.getName());
+            entity.setValue(globalDataResponse.getValue());
+            result.postValue(entity);
+        });
+
+        return result;
+    }
+
+    @Override
+    public LiveData<GlobalDataEntity> getGlobalSembuh() {
+        MutableLiveData<GlobalDataEntity> result = new MutableLiveData<>();
+        remoteDataSource.getGlobalSembuh(globalDataResponse -> {
+            GlobalDataEntity entity = new GlobalDataEntity();
+            entity.setName(globalDataResponse.getName());
+            entity.setValue(globalDataResponse.getValue());
+            result.postValue(entity);
+        });
+
+        return result;
+    }
+
+    @Override
+    public LiveData<GlobalDataEntity> getGlobalMeninggal() {
+        MutableLiveData<GlobalDataEntity> result = new MutableLiveData<>();
+        remoteDataSource.getGlobalMeninggal(globalDataResponse -> {
+            GlobalDataEntity entity = new GlobalDataEntity();
+            entity.setName(globalDataResponse.getName());
+            entity.setValue(globalDataResponse.getValue());
+            result.postValue(entity);
+        });
+
         return result;
     }
 }

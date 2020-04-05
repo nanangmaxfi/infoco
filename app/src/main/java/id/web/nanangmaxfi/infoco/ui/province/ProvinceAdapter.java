@@ -13,6 +13,7 @@ import java.util.List;
 
 import id.web.nanangmaxfi.infoco.R;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.ProvinceEntity;
+import id.web.nanangmaxfi.infoco.utils.ConfigUtils;
 
 public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder> {
     private List<ProvinceEntity> listProvince = new ArrayList<>();
@@ -55,9 +56,9 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         void bind(ProvinceEntity provinceEntity, int position){
             txtNo.setText(String.valueOf(position));
             txtName.setText(provinceEntity.getProvinsi());
-            txtPositif.setText(provinceEntity.getPositif());
-            txtSembuh.setText(provinceEntity.getSembuh());
-            txtMeninggal.setText(provinceEntity.getMeninggal());
+            txtPositif.setText(ConfigUtils.formatNumber(provinceEntity.getPositif()));
+            txtSembuh.setText(ConfigUtils.formatNumber(provinceEntity.getSembuh()));
+            txtMeninggal.setText(ConfigUtils.formatNumber(provinceEntity.getMeninggal()));
         }
     }
 }

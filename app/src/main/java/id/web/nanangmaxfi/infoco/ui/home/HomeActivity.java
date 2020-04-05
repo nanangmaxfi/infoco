@@ -52,10 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         ViewModelFactory factory = ViewModelFactory.getInstance();
         viewModel = new ViewModelProvider(this,factory).get(HomeViewModel.class);
         showLoading(true);
-        viewModel.getIndonesia().observe(this, data -> {
-            showLoading(false);
-            loadIndonesia(data);
-        });
+        loadData();
 
         btnProvinsi.setOnClickListener(view -> {
             Intent intent = new Intent(this, ProvinceActivity.class);
@@ -68,13 +65,26 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         refreshLayout.setOnRefreshListener(() -> {
-            new Handler().postDelayed(() -> {
-                viewModel.getIndonesia().observe(this, data -> {
-                    refreshLayout.setRefreshing(false);
-                    showLoading(false);
-                    loadIndonesia(data);
-                });
-            }, 1000);
+            new Handler().postDelayed(this::loadData, 1000);
+        });
+    }
+
+    private void loadData(){
+        viewModel.getIndonesia().observe(this, data -> {
+            refreshLayout.setRefreshing(false);
+            loadIndonesia(data);
+        });
+
+        viewModel.getGlobalPositif().observe(this, globalDataEntity ->{
+            txtPositif.setText(globalDataEntity.getValue());
+        });
+
+        viewModel.getGlobalSembuh().observe(this, globalDataEntity ->{
+            txtSembuh.setText(globalDataEntity.getValue());
+        });
+
+        viewModel.getGlobalMeninggal().observe(this, globalDataEntity ->{
+            txtMeninggal.setText(globalDataEntity.getValue());
         });
     }
 
@@ -87,7 +97,7 @@ public class HomeActivity extends AppCompatActivity {
         else {
             loadFailed();
         }
-
+        showLoading(false);
     }
 
     private void loadFailed(){

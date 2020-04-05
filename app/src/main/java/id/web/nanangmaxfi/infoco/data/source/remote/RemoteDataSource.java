@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import id.web.nanangmaxfi.infoco.data.source.remote.response.CountryResponse;
+import id.web.nanangmaxfi.infoco.data.source.remote.response.GlobalDataResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.IndonesiaResponse;
 import id.web.nanangmaxfi.infoco.data.source.remote.response.ProvinceResponse;
 import id.web.nanangmaxfi.infoco.utils.rest.ApiClient;
@@ -38,6 +39,60 @@ public class RemoteDataSource {
 
             @Override
             public void onFailure(Call<List<IndonesiaResponse>> call, Throwable t) {
+                Log.e(TAG,t.getMessage());
+                callback.onDataReceived(null);
+            }
+        });
+    }
+
+    public void getGlobalPositif(LoadGlobalCallback callback){
+        apiInterface.getGlobalPositif().enqueue(new Callback<GlobalDataResponse>() {
+            @Override
+            public void onResponse(Call<GlobalDataResponse> call, Response<GlobalDataResponse> response) {
+                if (response.isSuccessful()){
+                    GlobalDataResponse data = response.body();
+                    callback.onDataReceived(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GlobalDataResponse> call, Throwable t) {
+                Log.e(TAG,t.getMessage());
+                callback.onDataReceived(null);
+            }
+        });
+    }
+
+    public void getGlobalSembuh(LoadGlobalCallback callback){
+        apiInterface.getGlobalSembuh().enqueue(new Callback<GlobalDataResponse>() {
+            @Override
+            public void onResponse(Call<GlobalDataResponse> call, Response<GlobalDataResponse> response) {
+                if (response.isSuccessful()){
+                    GlobalDataResponse data = response.body();
+                    callback.onDataReceived(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GlobalDataResponse> call, Throwable t) {
+                Log.e(TAG,t.getMessage());
+                callback.onDataReceived(null);
+            }
+        });
+    }
+
+    public void getGlobalMeninggal(LoadGlobalCallback callback){
+        apiInterface.getGlobalMeninggal().enqueue(new Callback<GlobalDataResponse>() {
+            @Override
+            public void onResponse(Call<GlobalDataResponse> call, Response<GlobalDataResponse> response) {
+                if (response.isSuccessful()){
+                    GlobalDataResponse data = response.body();
+                    callback.onDataReceived(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GlobalDataResponse> call, Throwable t) {
                 Log.e(TAG,t.getMessage());
                 callback.onDataReceived(null);
             }
@@ -92,5 +147,9 @@ public class RemoteDataSource {
 
     public interface LoadCountryCallback{
         void onDataReceived(List<CountryResponse> countryResponses);
+    }
+
+    public interface LoadGlobalCallback{
+        void onDataReceived(GlobalDataResponse globalDataResponse);
     }
 }

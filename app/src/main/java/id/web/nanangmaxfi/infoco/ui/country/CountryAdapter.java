@@ -13,6 +13,7 @@ import java.util.List;
 
 import id.web.nanangmaxfi.infoco.R;
 import id.web.nanangmaxfi.infoco.data.source.local.entity.CountryEntity;
+import id.web.nanangmaxfi.infoco.utils.ConfigUtils;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> {
     private List<CountryEntity> listCountry = new ArrayList<>();
@@ -55,9 +56,9 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         void bind(CountryEntity countryEntity, int position){
             txtNo.setText(String.valueOf(position));
             txtName.setText(countryEntity.getCountry());
-            txtPositif.setText(countryEntity.getPositif());
-            txtSembuh.setText(countryEntity.getSembuh());
-            txtMeninggal.setText(countryEntity.getMeninggal());
+            txtPositif.setText(ConfigUtils.formatNumber(countryEntity.getPositif()));
+            txtSembuh.setText(ConfigUtils.formatNumber(countryEntity.getSembuh()));
+            txtMeninggal.setText(ConfigUtils.formatNumber(countryEntity.getMeninggal()));
         }
     }
 }

@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+
 import id.web.nanangmaxfi.infoco.R;
 
 public class ConfigUtils {
@@ -33,5 +35,11 @@ public class ConfigUtils {
                 });
             }
         }
+    }
+
+    //format number
+    public static String formatNumber(String number){
+        DecimalFormat decimalFormat = new DecimalFormat("###,###.###");
+        return decimalFormat.format(Double.parseDouble(number));
     }
 }
